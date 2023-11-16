@@ -1,11 +1,18 @@
 import * as React from "react";
-import { Thread } from "../types/threads";
-import { StyleSheet, View, useColorScheme } from "react-native";
+import { Thread } from "../types/Thread";
+import { View, useColorScheme } from "react-native";
 import { Text } from "./Themed";
-import { Ionicons, AntDesign, Feather, FontAwesome } from "@expo/vector-icons";
-import { MaterialIcons } from "@expo/vector-icons";
+import {
+  Ionicons,
+  AntDesign,
+  Feather,
+  FontAwesome,
+  MaterialIcons,
+} from "@expo/vector-icons";
 import { timeAgo } from "../utils/time-ago";
 import { Image } from "expo-image";
+import styles from "../style/style";
+import SendFriends from "./SendFriends";
 export default function ThreadsItems(thread: Thread): JSX.Element {
   return (
     <View>
@@ -17,12 +24,7 @@ export default function ThreadsItems(thread: Thread): JSX.Element {
         />
         <Text>{thread.content}</Text>
         {thread.image && (
-          <Image
-            source={thread.image}
-            style={{ width: "100%", minHeight: 300, borderRadius: 10 }}
-            contentFit="cover"
-            transition={200}
-          />
+          <Image style={styles.postImage} source={thread.image} />
         )}
         <BottomIcons />
         <PostFooter replies={thread.repliesCount} likes={thread.likesCount} />
@@ -83,22 +85,15 @@ function PostHeading({
   verified: boolean;
 }) {
   return (
-    <View
-      style={{
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-between",
-        flexGrow: 1,
-      }}
-    >
-      <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
-        <Text style={{ fontWeight: "300", color: "black" }}>{name}</Text>
+    <View style={styles.iconList}>
+      <View style={styles.iconItem}>
+        <Text style={styles.iconText}>{name}</Text>
         {verified && (
           <MaterialIcons name="verified" size={12} color={"black"} />
         )}
       </View>
-      <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
-        <Text style={{ color: "black" }}>{timeAgo(createdAt)}</Text>
+      <View style={styles.iconItem}>
+        <Text style={styles.iconText}>{timeAgo(createdAt)}</Text>
         <Feather name="more-horizontal" size={12} color={"black"} />
       </View>
     </View>
@@ -117,25 +112,40 @@ function BottomIcons() {
   const iconSize = 20;
   const currentTheme = useColorScheme();
   const iconColor = currentTheme === "dark" ? "white" : "black";
+
+  const [isVisible, setIsVisible] = React.useState(false);
+  const friends = [
+    "Sena Demirbas",
+    "Duygu Aran",
+    "Büsra Arıgün",
+    "Ebubekir Demiray",
+    "Doğukan Yıldız",
+  ];
+
+  const openModal = () => {
+    setIsVisible(true);
+  };
+
+  const closeModal = () => {
+    setIsVisible(false);
+  };
+
   return (
     <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
       <FontAwesome name="heart-o" size={iconSize} color={iconColor} />
       <Ionicons name="chatbubble-outline" size={iconSize} color={iconColor} />
       <AntDesign name="retweet" size={iconSize} color={iconColor} />
-      <Feather name="send" size={iconSize} color={iconColor} />
+      <Feather
+        name="send"
+        size={iconSize}
+        color={iconColor}
+        onPress={openModal}
+      />
+      <SendFriends
+        isVisible={isVisible}
+        onClose={closeModal}
+        friends={friends}
+      />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    gap: 6,
-    paddingBottom: 30,
-  },
-  image: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-  },
-});

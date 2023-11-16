@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Thread } from "../types/threads";
+import { Thread } from "../types/User";
 import { generateThreads } from "../utils/generate-dommy-data";
 
 export const ThreadsContext = React.createContext<Thread[]>([]);

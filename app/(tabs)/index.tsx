@@ -1,8 +1,6 @@
 import { Platform, StyleSheet, Text } from "react-native";
 import * as React from "react";
 import Lottie from "lottie-react-native";
-//import EditScreenInfo from "../../components/EditScreenInfo";
-//import { Text, View } from "../../components/Themed";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { RefreshControl, ScrollView } from "react-native-gesture-handler";
 import { createRandomUser } from "../../utils/generate-dommy-data";

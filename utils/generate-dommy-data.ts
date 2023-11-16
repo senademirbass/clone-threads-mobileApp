@@ -1,5 +1,6 @@
-import { fa, faker } from "@faker-js/faker";
-import { Thread, User } from "../types/threads";
+import { faker } from "@faker-js/faker";
+import { User } from "../types/User";
+import { Thread } from "../types/Thread";
 
 export function createRandomFollower(): User {
   const firstName = faker.person.firstName();
