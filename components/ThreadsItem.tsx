@@ -114,6 +114,7 @@ function BottomIcons() {
   const iconColor = currentTheme === "dark" ? "white" : "black";
 
   const [isVisible, setIsVisible] = React.useState(false);
+  const [isLike, setIsLike] = React.useState(false);
   const friends = [
     "Sena Demirbas",
     "Duygu Aran",
@@ -132,7 +133,12 @@ function BottomIcons() {
 
   return (
     <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
-      <FontAwesome name="heart-o" size={iconSize} color={iconColor} />
+      <FontAwesome
+        name="heart-o"
+        size={iconSize}
+        onPress={() => setIsLike((isLike) => !isLike)}
+        color={isLike ? "red" : "white"}
+      />
       <Ionicons name="chatbubble-outline" size={iconSize} color={iconColor} />
       <AntDesign name="retweet" size={iconSize} color={iconColor} />
       <Feather
