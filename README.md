@@ -13,3 +13,5 @@ Threads Clone, orijinal Threads uygulamasını temel alarak geliştirilmiştir. 
 - [Expo CLI](https://docs.expo.dev/get-started/installation/)
 - [Yarn](https://yarnpkg.com/) (isteğe bağlı, ancak önerilir)
 
+# Proje Görseli
+![GitHub Octocat GIF](./project.gif)
